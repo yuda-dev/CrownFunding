@@ -14,8 +14,8 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->string('id', 40);
-            $table->string('role_id', 40)->default(false);
+            $table->uuid('id')->primary();
+            $table->uuid('role_id')->default(false);
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -24,8 +24,6 @@ class CreateUsersTable extends Migration
             $table->boolean('code_otp')->default(false);
             $table->string('isVerified')->nullable();
             $table->timestamps();
-
-            $table->primary('id');
             $table->foreign('role_id')->references('id')->on('roles');
 
             $table->engine = 'InnoDB';
