@@ -21,12 +21,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->boolean('code_otp')->default(false);
-            $table->string('isVerified')->nullable();
             $table->timestamps();
-            $table->foreign('role_id')->references('id')->on('roles');
-
-            $table->engine = 'InnoDB';
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
     }
 

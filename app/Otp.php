@@ -2,10 +2,10 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Traits\UsesUuid;
+use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Otp extends Model
 {
     use UsesUuid;
 
