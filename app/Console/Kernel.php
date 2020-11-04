@@ -25,9 +25,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-            DB::table('users')->where('code_otp')->delete();
-        })->everyFiveMinutes();
     }
 
     /**

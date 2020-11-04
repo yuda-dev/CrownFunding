@@ -8,23 +8,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use App\Traits\UsesUuid;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable, UsesUuid;
 
-    /**
-     * The "booting" function of model
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        static::creating(function ($model) {
-            if (!$model->getKey()) {
-                $model->{$model->getKeyName()} = (string) Str::uuid();
-            }
-        });
-    }
 
     /**
      * The attributes that are mass assignable.
@@ -44,25 +31,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /**
-     * Get the value indicating whether the IDs are incrementing.
-     *
-     * @return bool
-     */
-    public function getIncrementing()
-    {
-        return false;
-    }
-
-    /**
-     * Get the auto-incrementing key type.
-     *
-     * @return string
-     */
-    public function getKeyType()
-    {
-        return 'string';
-    }
 
     public function role()
     {
