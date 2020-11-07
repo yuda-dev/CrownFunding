@@ -15,7 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->middleware('verified')->name('home');
-Route::get('/route2', 'HomeController@route2')->middleware('verified')->name('route2');
+
+Route::get('/route1', function () {
+    return 'masuk';
+})->middleware(['auth', 'email_verified']);
+
+Route::get('/route2', function () {
+    return 'masuk';
+})->middleware(['auth', 'email_verified', 'admin']);

@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class AdminMiddleware
+class EmailVerifiedMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,12 +17,12 @@ class AdminMiddleware
     {
         $user = auth()->user();
 
-        if ($user->isAdmin()) {
+        if ($user->email_verified_at != null) {
             return $next($request);
         }
 
         return response()->json([
-            'message' => 'Anda Bukan Admin',
-        ]);
+                'message' => 'Email anda belum terverifikasi',
+            ]);
     }
 }
