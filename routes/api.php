@@ -10,4 +10,5 @@ Route::group([
     Route::post('register', 'RegisterController');
     Route::post('login', 'LoginController');
     Route::get('logout', 'LogoutController');
+    Route::post('verification', 'VerificationController');
 });

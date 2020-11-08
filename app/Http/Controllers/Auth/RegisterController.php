@@ -45,10 +45,11 @@ class RegisterController extends Controller
             $data->email = $request->email;
             $data->save();
 
+            $minutes = 3000;
             $code_otp = new Otp();
-            $code_otp->otp = rand(10, 600000);
+            $code_otp->otp = rand(111111, 999999);
             $code_otp->user_id = $data->id;
-            $code_otp->valid_until = \Carbon\Carbon::now();
+            $code_otp->valid_until = \Carbon\Carbon::now()->addMinutes($minutes);
             $code_otp->save();
 
             if ($data) {
@@ -69,7 +70,7 @@ class RegisterController extends Controller
             } else {
                 return response()->json([
                     'response_code' => false,
-                    'message' => 'Post Gagal Disimpan!',
+                    'message' => 'Gagal Disimpan!',
                 ], 400);
             }
         }
