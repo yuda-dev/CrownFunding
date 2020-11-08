@@ -3,71 +3,75 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
+use App\Http\Requests\Auth\RegisterRequest;
+use App\Otp;
 use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
-    use RegistersUsers;
-
     /**
-     * Where to redirect users after registration.
+     * Handle the incoming request.
      *
-     * @var string
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function __invoke(Request $request)
     {
-        $this->middleware('guest');
-    }
+        //validate data
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name'     => ['string', 'required'],
+                'email'   => ['email', 'required', 'unique:users,email']
+            ],
+            [
+                'name.required' => 'Enter your name !',
+                'email.required' => 'Enter Your Email !',
+            ]
+        );
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
+        if ($validator->fails()) {
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+            return response()->json([
+                'message' => 'The given data was invalid !',
+                'errors'    => $validator->errors()
+            ], 400);
+        } else {
+
+            $data = new User();
+            $data->name = $request->name;
+            $data->email = $request->email;
+            $data->save();
+
+            $code_otp = new Otp();
+            $code_otp->otp = rand(10, 600000);
+            $code_otp->user_id = $data->id;
+            $code_otp->valid_until = \Carbon\Carbon::now();
+            $code_otp->save();
+
+            if ($data) {
+                return response()->json([
+                    'response_code' => '00',
+                    'message' => 'Silahkan cek email!',
+                    'data' => [
+                        'users' => [
+                            'name' => $data->name,
+                            'email' => $data->email,
+                            'created_at' => $data->created_at,
+                            'updated_at' => $data->updated_at,
+                            'id' => $data->id,
+                        ]
+
+                    ]
+                ], 200);
+            } else {
+                return response()->json([
+                    'response_code' => false,
+                    'message' => 'Post Gagal Disimpan!',
+                ], 400);
+            }
+        }
     }
 }
