@@ -44,7 +44,9 @@ class VerificationController extends Controller
         $data['user'] = $user;
 
         return response()->json([
+            'response_code' => '00',
             'message' => 'OTP Code sudah berhasil di verifikasi',
+            'data' => $data
         ]);
     }
 }

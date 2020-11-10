@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\RegisterRequest;
-use App\Otp;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
-class RegisterController extends Controller
+class RegenerateController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -20,18 +17,18 @@ class RegisterController extends Controller
     public function __invoke(Request $request)
     {
         $request->validate([
-            'email' => 'required|unique:users,email|email',
-            'name' => 'required'
+            'email' => 'required'
         ]);
 
-        $data_request = $request->all();
-        $user = User::create($data_request);
+        $user = User::where('email', $request->email)->first();
+
+        $user->generate_code_otp();
 
         $data['user'] = $user;
 
         return response()->json([
             'response_code' => '00',
-            'response_messege' => 'user berhasil didaftarkan, silahkan cek email untuk melihat kode OTP',
+            'response_message' => 'otp berhasil di generate, silahkan cek email untuk melihat code otp',
             'data' => $data
         ]);
     }
