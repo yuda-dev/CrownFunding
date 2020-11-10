@@ -10,4 +10,9 @@ class Otp extends Model
     use UsesUuid;
 
     protected $guarded = [];
+
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }
 }
