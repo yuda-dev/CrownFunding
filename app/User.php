@@ -115,8 +115,8 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function otp()
+    public function otp_code()
     {
-        return $this->belongsTo(Otp::class);
+        return $this->hasOne('App\Otp', 'user_id', 'id');
     }
 }

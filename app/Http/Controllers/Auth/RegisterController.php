@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserRegistered;
 use App\Http\Controllers\Controller;
 use App\Mail\UserRegisterMail;
 use App\User;
@@ -26,9 +27,9 @@ class RegisterController extends Controller
         $data_request = $request->all();
         $user = User::create($data_request);
 
-        $data['user'] = $user;
+        event(new UserRegistered($user, 'register'));
 
-        Mail::to($user)->send(new UserRegisterMail($user));
+        $data['user'] = $user;
 
         return response()->json([
             'response_code' => '00',
