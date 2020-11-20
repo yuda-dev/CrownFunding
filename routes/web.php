@@ -11,18 +11,4 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->middleware('verified')->name('home');
-
-Route::get('/route1', function () {
-    return 'masuk';
-})->middleware(['auth', 'email_verified']);
-
-Route::get('/route2', function () {
-    return 'masuk';
-})->middleware(['auth', 'email_verified', 'admin']);
+Route::view('/{any?}', 'app')->where('any', '.*');
