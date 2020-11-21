@@ -9,7 +9,7 @@
       </div>
       <v-layout wrap>
         <v-flex v-for="(campaign, index) in campaigns" :key="'campaign-'+campaign.id" xs6>
-          <Campaign :campaign="campaign" />
+          <Campaign_item :campaign="campaign" />
         </v-flex>
       </v-layout>
     </v-container>
@@ -41,11 +41,11 @@
 </template>
 
 <script>
-import Campaign from "../components/Campaign.vue";
+import Campaign_item from "../components/Campaign_item.vue";
 
 export default {
   components: {
-    Campaign
+    Campaign_item
   },
 
   data: () => ({
