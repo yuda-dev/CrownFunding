@@ -9,11 +9,7 @@
       </div>
       <v-layout wrap>
         <v-flex v-for="(campaign, index) in campaigns" :key="'campaign-'+campaign.id" xs6>
-          <v-card :to="'/campaign/'+ campaign.id">
-            <v-img :src="campaign.image" class="white--text">
-              <v-card-title class="fill-height align-end" v-text="campaign.title"></v-card-title>
-            </v-img>
-          </v-card>
+          <Campaign :campaign="campaign" />
         </v-flex>
       </v-layout>
     </v-container>
@@ -45,7 +41,13 @@
 </template>
 
 <script>
+import Campaign from "../components/Campaign.vue";
+
 export default {
+  components: {
+    Campaign
+  },
+
   data: () => ({
     campaigns: [],
     blogs: []
