@@ -246,7 +246,7 @@ var render = function() {
             [
               _c(
                 "v-carousel",
-                { attrs: { "hide-delimiter-height": "250px" } },
+                { attrs: { "hide-delimiter": "", height: "250px" } },
                 _vm._l(_vm.blogs, function(blog, i) {
                   return _c(
                     "v-carousel-item",

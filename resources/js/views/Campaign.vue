@@ -37,7 +37,7 @@
         <v-btn
           block
           color="primary"
-          @click="donate"
+          @click="changeCounter"
           :disabled="campaign.collected >= campaign.required"
         >
           <v-icon>mdi-money</v-icon>&nbsp;
@@ -49,14 +49,21 @@
 </template>
 
 <script>
+import Count from "../vuex/Count.vue";
 export default {
   data: () => ({
     campaign: {}
   }),
+  components: {
+    Count
+  },
   created() {
     this.go();
   },
   methods: {
+    changeCounter() {
+      this.$store.commit("changeTheCounter", 1);
+    },
     go() {
       let { id } = this.$route.params;
       let url = "api/campaign/" + id;
@@ -71,9 +78,6 @@ export default {
           let { responses } = error;
           console.log(responses);
         });
-    },
-    donate() {
-      alert("donate");
     }
   }
 };

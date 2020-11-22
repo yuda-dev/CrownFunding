@@ -22,7 +22,7 @@
         </v-btn>
       </div>
       <v-layout wrap>
-        <v-carousel hide-delimiter-height="250px">
+        <v-carousel hide-delimiter height="250px">
           <v-carousel-item v-for="(blog, i) in blogs" :key="'blog-'+blog.id">
             <v-img :src="blog.image" class="fill-height">
               <v-container fill-height fluid pa-0 ma-0>
