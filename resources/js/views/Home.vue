@@ -9,7 +9,7 @@
       </div>
       <v-layout wrap>
         <v-flex v-for="(campaign, index) in campaigns" :key="'campaign-'+campaign.id" xs6>
-          <Campaign_item :campaign="campaign" />
+          <campaign-item :campaign="campaign" />
         </v-flex>
       </v-layout>
     </v-container>
@@ -41,18 +41,16 @@
 </template>
 
 <script>
-import Campaign_item from "../components/Campaign_item.vue";
+import CampaignItem from "../components/CampaignItem.vue";
 
 export default {
-  components: {
-    Campaign_item
-  },
-
   data: () => ({
     campaigns: [],
     blogs: []
   }),
-
+  components: {
+    CampaignItem: () => import("../components/CampaignItem")
+  },
   created() {
     axios
       .get("api/campaign/random/2")

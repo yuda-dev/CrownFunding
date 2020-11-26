@@ -37,7 +37,7 @@
         <v-btn
           block
           color="primary"
-          @click="changeCounter"
+          @click="donate"
           :disabled="campaign.collected >= campaign.required"
         >
           <v-icon>mdi-money</v-icon>&nbsp;
@@ -49,21 +49,32 @@
 </template>
 
 <script>
-import Count from "../vuex/Count.vue";
+import { mapMutations, mapActions } from "vuex";
 export default {
   data: () => ({
     campaign: {}
   }),
-  components: {
-    Count
-  },
   created() {
     this.go();
   },
   methods: {
-    changeCounter() {
-      this.$store.commit("changeTheCounter", 1);
+    ...mapMutations({
+      tambahTransaksi: "transaction/insert"
+    }),
+
+    ...mapActions({
+      setAlert: "alert/set"
+    }),
+
+    donate() {
+      this.tambahTransaksi();
+      this.setAlert({
+        status: true,
+        color: "primary",
+        text: "Transaksi ditambahkan"
+      });
     },
+
     go() {
       let { id } = this.$route.params;
       let url = "api/campaign/" + id;
@@ -79,6 +90,13 @@ export default {
           console.log(responses);
         });
     }
+
+    //...mapMutations({
+    // donate: "transaction/insert"
+    //})
+    //donate() {
+    //this.$store.commit("insert");
+    //}
   }
 };
 </script>

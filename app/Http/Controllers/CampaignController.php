@@ -34,6 +34,9 @@ class CampaignController extends Controller
         $campaign = Campaign::create([
             'title' => $request->title,
             'description' => $request->description,
+            'address' => $request->address,
+            'required' => $request->required,
+            'collected' => 0
         ]);
 
         if ($request->hasFile('image')) {
@@ -89,6 +92,20 @@ class CampaignController extends Controller
         return response()->json([
             'response_code' => '00',
             'response_message' => 'berhasi; ditampilkan',
+            'data' => $data
+        ], 200);
+    }
+
+    public function search($keyword)
+    {
+        $campaigns = Campaign::select('*')
+            ->where('title', 'LIKE', "%" . $keyword . "%")->get();
+
+        $data['campaigns'] = $campaigns;
+
+        return response()->json([
+            'response_code' => '00',
+            'response_message' => 'data berhasi; ditampilkan',
             'data' => $data
         ], 200);
     }
