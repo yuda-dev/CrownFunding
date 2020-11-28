@@ -25,7 +25,7 @@ export default {
 
             let config = {
                 headers: {
-                    'Authorization': 'Bearir' + payload.token,
+                    'Authorization': 'Bearer' + payload.token,
                 }
             }
 

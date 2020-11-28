@@ -44,11 +44,11 @@ __webpack_require__.r(__webpack_exports__);
     go: function go() {
       var _this = this;
 
-      var url = "api/campaign?page" + this.page;
+      var url = "api/campaign?page=" + this.page;
       axios.get(url).then(function (response) {
         var data = response.data.data;
         _this.campaigns = data.campaigns.data;
-        _this.page = data.campaigns.curren_page;
+        _this.page = data.campaigns.current_page;
         _this.lengthPage = data.campaigns.last_page;
       })["catch"](function (error) {
         var responses = error.responses;
@@ -80,7 +80,7 @@ var render = function() {
     [
       _c(
         "v-container",
-        { staticClass: "ma-0 pa-0", attrs: { grid: "", "list-sm": "" } },
+        { staticClass: "ma-0 pa-0", attrs: { "grid-list-sm": "" } },
         [
           _c("v-subheader", [_vm._v("All Campaigns")]),
           _vm._v(" "),

@@ -77,7 +77,7 @@ export default {
 
     go() {
       let { id } = this.$route.params;
-      let url = "api/campaign/" + id;
+      let url = "/api/campaign/" + id;
       axios
         .get(url)
         .then(response => {
@@ -91,12 +91,12 @@ export default {
         });
     }
 
-    //...mapMutations({
+    // ...mapMutations({
     // donate: "transaction/insert"
-    //})
-    //donate() {
-    //this.$store.commit("insert");
-    //}
+    // })
+    // donate() {
+    // this.$store.commit("insert");
+    // }
   }
 };
 </script>

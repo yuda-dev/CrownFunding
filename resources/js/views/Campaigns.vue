@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container class="ma-0 pa-0" grid list-sm>
+    <v-container class="ma-0 pa-0" grid-list-sm>
       <v-subheader>All Campaigns</v-subheader>
       <v-layout wrap>
         <v-flex v-for="(campaign) in campaigns" :key="'campaign-'+campaign.id" xs6>
@@ -28,14 +28,14 @@ export default {
   },
   methods: {
     go() {
-      let url = "api/campaign?page" + this.page;
+      let url = "api/campaign?page=" + this.page;
       axios
         .get(url)
         .then(response => {
           let { data } = response.data;
 
           this.campaigns = data.campaigns.data;
-          this.page = data.campaigns.curren_page;
+          this.page = data.campaigns.current_page;
           this.lengthPage = data.campaigns.last_page;
         })
 

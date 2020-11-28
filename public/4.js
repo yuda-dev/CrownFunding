@@ -107,7 +107,7 @@ var render = function() {
     [
       _c(
         "v-container",
-        { staticClass: "ma-0 pa-0", attrs: { "grid-list-item": "" } },
+        { staticClass: "ma-0 pa-0", attrs: { "grid-list-sm": "" } },
         [
           _c(
             "div",

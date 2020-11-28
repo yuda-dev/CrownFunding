@@ -25,7 +25,7 @@
 
       <v-container class="ma-0 pa-0" grid-list-sm>
         <v-layout wrap>
-          <v-flex v-for="(campaign) in campaigns" :key="'campaign-'+campaign.id">
+          <v-flex v-for="(campaign) in campaigns" :key="'campaign-'+campaign.id" xs6>
             <campaign-item :campaign="campaign" @click.native="close" />
           </v-flex>
         </v-layout>

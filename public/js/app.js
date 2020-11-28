@@ -4260,7 +4260,7 @@ var render = function() {
                 _vm._l(_vm.campaigns, function(campaign) {
                   return _c(
                     "v-flex",
-                    { key: "campaign-" + campaign.id },
+                    { key: "campaign-" + campaign.id, attrs: { xs6: "" } },
                     [
                       _c("campaign-item", {
                         attrs: { campaign: campaign },
@@ -65596,7 +65596,7 @@ __webpack_require__.r(__webpack_exports__);
       var commit = _ref2.commit;
       var config = {
         headers: {
-          'Authorization': 'Bearir' + payload.token
+          'Authorization': 'Bearer' + payload.token
         }
       };
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/auth/check-token', {}, config).then(function (response) {

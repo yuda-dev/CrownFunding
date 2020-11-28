@@ -93,7 +93,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       var id = this.$route.params.id;
-      var url = "api/campaign/" + id;
+      var url = "/api/campaign/" + id;
       axios.get(url).then(function (response) {
         var data = response.data.data;
         _this.campaign = data.campaign;
@@ -101,12 +101,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var responses = error.responses;
         console.log(responses);
       });
-    } //...mapMutations({
+    } // ...mapMutations({
     // donate: "transaction/insert"
-    //})
-    //donate() {
-    //this.$store.commit("insert");
-    //}
+    // })
+    // donate() {
+    // this.$store.commit("insert");
+    // }
 
   })
 });

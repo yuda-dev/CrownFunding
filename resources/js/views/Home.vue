@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container class="ma-0 pa-0" grid-list-item>
+    <v-container class="ma-0 pa-0" grid-list-sm>
       <div class="text-right">
         <v-btn small text to="/campaigns" class="blue--text">
           All Campaigns
