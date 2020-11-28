@@ -36,7 +36,7 @@ class CampaignController extends Controller
             'description' => $request->description,
             'address' => $request->address,
             'required' => $request->required,
-            'collected' => 0
+            'collected' => $request->collected
         ]);
 
         if ($request->hasFile('image')) {
