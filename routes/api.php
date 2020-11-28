@@ -13,6 +13,10 @@ Route::group([
     Route::post('verification', 'VerificationController');
     Route::post('regenerate-otp', 'RegenerateController');
     Route::post('update-password', 'UpdatePasswordController');
+    Route::post('check-token', 'CekTokenController')->middleware('auth:api');
+
+    Route::get('/social/{provider}', 'SocialiteController@redirectToProvider');
+    Route::get('/social/{provider}/callback', 'SocialiteController@handleProvideCallback');
 });
 
 Route::group([

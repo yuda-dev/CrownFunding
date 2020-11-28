@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class LogoutController extends Controller
+class CekTokenController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -16,11 +15,10 @@ class LogoutController extends Controller
      */
     public function __invoke(Request $request)
     {
-        Auth::logout();
-
         return response()->json([
-            'responese' => '00',
-            'message' => 'berhasil logout'
+            'response' =>  '00',
+            'message' => 'token valid',
+            'data' => true
         ], 200);
     }
 }

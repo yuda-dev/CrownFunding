@@ -60,7 +60,7 @@ export default {
       })
 
       .catch(error => {
-        let { response } = error;
+        let { responses } = error;
         console.log(responses);
       });
 
@@ -72,7 +72,7 @@ export default {
       })
 
       .catch(error => {
-        let { response } = error;
+        let { responses } = error;
         console.log(responses);
       });
   }

@@ -171,17 +171,18 @@ export default {
       setDialogStatus: "dialog/setStatus",
       setDialogComponent: "dialog/setComponent",
       setAuth: "auth/set",
-      setAlert: "alert/set"
+      setAlert: "alert/set",
+      checkToken: "auth/checkToken"
     }),
     logout() {
       let config = {
         headers: {
-          Authorization: "Bearir " + this.user.token
+          Authorization: "Bearer " + this.user.token
         }
       };
       axios
         .post("/api/auth/logout", {}, config)
-        .then(response => {
+        .then((response) => {
           this.setAuth({});
           this.setAlert({
             status: true,
@@ -197,6 +198,11 @@ export default {
             text: data.message
           });
         });
+    }
+  },
+  mounted() {
+    if (this.user) {
+      this.checkToken(this.user);
     }
   }
 };

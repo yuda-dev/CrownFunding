@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+	 <v-card>
     <v-toolbar dark color="primary">
       <v-btn icon dark @click.native="close">
         <v-icon>mdi-close</v-icon>
@@ -33,6 +33,11 @@
           <v-btn color="success lighten-1" :disabled="!valid" @click="submit">
             Login
             <v-icon right dark>mdi-lock-open</v-icon>
+          </v-btn>
+
+          <v-btn color="primary lighten-1" @click="authProvider('google')">
+            Login with google
+            <v-icon right dark>mdi-google</v-icon>
           </v-btn>
         </div>
       </v-form>
@@ -81,8 +86,8 @@ export default {
         };
         axios
           .post("/api/auth/login", formData)
-          .then(responese => {
-            let { data } = responese.data;
+          .then(response => {
+            let { data } = response.data;
             this.setAuth(data);
             if (this.user.user.id.length > 0) {
               this.setAlert({
@@ -100,11 +105,11 @@ export default {
             }
           })
           .catch(error => {
-            let responeses = error.responese;
+            let response = error.response;
 
             this.setAlert({
               status: true,
-              text: responeses.data.error,
+              text: response.data.error,
               color: "error"
             });
           });
@@ -112,6 +117,23 @@ export default {
     },
     close() {
       this.$emit("closed", false);
+    },
+
+    authProvider(provider) {
+      let url = "/api/auth/social/" + provider;
+      axios
+        .get(url)
+        .then(response => {
+          let data = response.data;
+          window.location.href = data.url;
+        })
+        .catch(error => {
+          this.setAlert({
+            status: true,
+            color: "error",
+            text: "login failed"
+          });
+        });
     }
   }
 };

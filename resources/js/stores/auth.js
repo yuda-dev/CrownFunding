@@ -1,3 +1,5 @@
+import Axios from "axios"
+
 export default {
     namespaced: true,
     state: {
@@ -16,6 +18,25 @@ export default {
         }, payload) => {
             commit('set', payload)
         },
+
+        checkToken: ({
+            commit
+        }, payload) => {
+
+            let config = {
+                headers: {
+                    'Authorization': 'Bearir' + payload.token,
+                }
+            }
+
+            Axios.post('/api/auth/check-token', {}, config)
+                .then((response) => {
+                    commit('set', payload)
+                })
+                .catch((error) => {
+                    commit('set', {})
+                })
+        }
     },
 
     getters: {

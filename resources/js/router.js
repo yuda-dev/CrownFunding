@@ -6,7 +6,7 @@ Vue.use(Router)
 
 //Define Route
 const router = new Router({
-    mdoe: 'history',
+    mode: 'history',
     routes: [{
             path: '/',
             name: 'home',
@@ -37,6 +37,12 @@ const router = new Router({
             name: 'campaign',
             component: () =>
                 import ('./views/Campaign.vue')
+        },
+        {
+            path: '/auth/social/:provider/callback',
+            name: 'social',
+            component: () =>
+                import ('./views/Social.vue')
         },
         {
             path: '*',
